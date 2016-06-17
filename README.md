@@ -31,8 +31,9 @@ Example usage: ./hq [options] <-html|-ohtml|-text|-attr <name1,name2,...> > <sel
 ```bash
 ./hq -u 'http://news.qq.com' -attr 'href,text' '.Q-tpList div.text a.linkto'  |iconv -f gbk -t utf8
 ```
-Take care about the encoding, u should ICONV it to fit your own env, for the html content is encoded in gbk. : )
-It will produce a list of like this below (on 18 Jun 2016). the original html was stored at index.html
+Take care about the encoding, u should ICONV it to fit your own env, for the html content is encoded in gbk. : ).
+
+It will produce a list like this below . the original html was stored at index.html (on 18 Jun 2016), just try it
 
         http://news.qq.com/a/20160617/057214.htm        发改委回应女学生裸条借贷：惩戒失信但要依法
         http://sports.qq.com/nba/       NBA-詹皇41+8+11库里遭逐 骑士大胜总分3-3
