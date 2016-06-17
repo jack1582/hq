@@ -14,15 +14,16 @@ Usage of ./hq:
         print the innerHTML of the node
   -ohtml
         print the outerHTML of the node
-  -s    strip white space at the beginning and tail, or not
   -text
-        print the TEXT part of the node
+        print the TEXT part of the node. same as <-attr 'text'>
   -u string
-        URI or FilePath to access. default STDIN (default "-")
+        URI or FilePath to scrape. default STDIN, so we can pipe sth :). URL must start with 'http' (default "-")
 
 Example usage: ./hq [options] <-html|-ohtml|-text|-attr <name1,name2,...> > <selector>
     selector: jQuery style selector. eg: "head script"
     -html|-ohtml|-text|-attr: must specify at least one of these functions
+
+    When u want to print multiple field that combined with text part and attribute, such as href and textbody,  you can <-attr 'href, text'>.
 ```
 
 ### Example
