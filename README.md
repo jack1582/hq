@@ -5,6 +5,7 @@ This is a tool that works like jQuery notation in browser.
 一个按jQuery风格的，工作在命令行下的 html dom 筛选器工具
 
 ### Usage
+```
 Usage of ./hq:
   -attr string
         print the attribute <string> in node, <string> are comma seperated, and output is joined with tab. eg: -attr href,target
@@ -22,7 +23,7 @@ Usage of ./hq:
 Example usage: ./hq [options] <-html|-ohtml|-text|-attr <name1,name2,...> > <selector>
     selector: jQuery style selector. eg: "head script"
     -html|-ohtml|-text|-attr: must specify at least one of these functions
-
+```
 
 ### Example
 
