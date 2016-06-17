@@ -31,6 +31,7 @@ Example usage: ./hq [options] <-html|-ohtml|-text|-attr <name1,name2,...> > <sel
 ```
 Take care about the encoding, u should ICONV it to fit your own env, for the html content is encoded in gbk. : )
 It will produce a list of like this below (on 18 Jun 2016). the original html was stored at index.html
+
         http://news.qq.com/a/20160617/057214.htm        发改委回应女学生裸条借贷：惩戒失信但要依法
         http://sports.qq.com/nba/       NBA-詹皇41+8+11库里遭逐 骑士大胜总分3-3
         http://news.qq.com/a/20160617/054420.htm        中国军队应越方请求 将协助搜救越南失事飞机
