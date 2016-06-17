@@ -16,14 +16,14 @@ import (
 )
 
 var (
-    url = flag.String("u", "-", "URI or FilePath to access. default STDIN")
+    url = flag.String("u", "-", "URI or FilePath to scrape. default STDIN, so we can pipe sth :). URL must start with 'http'")
     html = flag.Bool("html", false, "print the innerHTML of the node")
     ohtml = flag.Bool("ohtml", false, "print the outerHTML of the node")
-    text = flag.Bool("text", false, "print the TEXT part of the node")
+    text = flag.Bool("text", false, "print the TEXT part of the node. same as <-attr 'text'>")
     attr = flag.String("attr", "", "print the attribute <string> in node, <string> are comma seperated, and output is joined with tab. eg: -attr href,target")
 
     debug = flag.Bool("d", false, "debug or not, if debug, some more will be output")
-    strip = flag.Bool("s", false, "strip white space at the beginning and tail, or not")
+    //strip = flag.Bool("s", false, "strip white space at the beginning and tail, or not") // always TrimSpace
 
 
     selector string = ""
@@ -35,6 +35,8 @@ const (
 Example usage: %s [options] <-html|-ohtml|-text|-attr <name1,name2,...> > <selector>
     selector: jQuery style selector. eg: "head script"
     -html|-ohtml|-text|-attr: must specify at least one of these functions
+
+    When u want to print multiple field that combined with text part and attribute, such as href and textbody,  you can <-attr 'href, text'>.
 `
 )
 
