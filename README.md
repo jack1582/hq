@@ -5,7 +5,7 @@ This is a tool that works like jQuery notation in browser.
 一个按jQuery风格的，工作在命令行下的 html dom 筛选器工具
 
 ### Changelog
-* 20160626: auto detect the file encoding by <meta http-equiv=...>  or <meta charset=...> tag, then re-encode the output to utf8, if options [-noenc] is not specified.
+* 20160626: auto detect the file encoding by `<meta http-equiv=...>`  or `<meta charset=...>` tag, then re-encode the output to utf8, if options [-noenc] is not specified.
 
 ### Usage
 ```
@@ -37,7 +37,7 @@ Example usage: ./hq [options] <-html|-ohtml|-text|-attr <name1,name2,...> > <sel
 ./hq -u 'http://www.qq.com' -attr 'href,text' 'div#newsInfoQuanguo a[target="_blank"]'  
 ```
 ** Note **
-* The selector chose the 'XXX' in  <div id="newsInfoQuanguo">...<a target="_blank">xx</a>...</div>. Learn more about the jQuery selector (here http://www.w3school.com.cn/jquery/jquery_selectors.asp)
+* The selector chose the 'XXX' in  `<div id="newsInfoQuanguo">...<a target="_blank">xx</a>...</div>`. Learn more about the jQuery selector (here http://www.w3school.com.cn/jquery/jquery_selectors.asp)
 * Take care about the encoding, u should make sure that it fits your own env. we consider that you works in utf8 envirionment
 
 It will produce a list like this below . the original html was stored at index.html (on 26 Jun 2016), just try it
