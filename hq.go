@@ -85,25 +85,23 @@ func run() {
 	var (
 		doc           *goquery.Document
 		doc_err, err  error
-		tmp_url       string
 		fd            *os.File
 		file_encoding string = "-"
 	)
-	tmp_url = strings.ToLower(*url)
-	if strings.HasPrefix(tmp_url, "http") {
-		doc, doc_err = goquery.NewDocument(*url)
-	} else if *url == "-" {
-		doc, doc_err = goquery.NewDocumentFromReader(os.Stdin)
-	} else {
-		if fd, err = os.Open(*url); err == nil {
-			doc, doc_err = goquery.NewDocumentFromReader(fd)
-		} else {
-			log.Fatal("open local file failed:", *url, err)
-		}
-		defer fd.Close()
-	}
+        if *url == "-" {
+            doc, doc_err = goquery.NewDocumentFromReader(os.Stdin)
+        } else if fd, err = os.Open(*url); err == nil {
+            doc, doc_err = goquery.NewDocumentFromReader(fd)
+            defer fd.Close()
+        } else {
+            tmp_url := *url
+            if !strings.HasPrefix(tmp_url,"http") {
+                tmp_url = "http://" + tmp_url
+            }
+            doc, doc_err = goquery.NewDocument(tmp_url)
+        }
 	if doc_err != nil {
-		log.Fatal("goquery NewDocument err:", err)
+		log.Fatal("goquery NewDocument err:", doc_err)
 	}
 
 	if *debug {

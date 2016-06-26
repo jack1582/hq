@@ -6,6 +6,7 @@ This is a tool that works like jQuery notation in browser.
 
 ### Changelog
 * 20160626: auto detect the file encoding by `<meta http-equiv=...>`  or `<meta charset=...>` tag, then re-encode the output to utf8, if options [-noenc] is not specified.
+* 20160626: open the -u STRING first as file, if failed , as url. and if not prefix with http, add http:// before request
 
 ### Usage
 ```
