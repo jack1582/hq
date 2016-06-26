@@ -4,6 +4,9 @@
 This is a tool that works like jQuery notation in browser.
 一个按jQuery风格的，工作在命令行下的 html dom 筛选器工具
 
+### Changelog
+* 20160626: auto detect the file encoding by <meta http-equiv=...>  or <meta charset=...> tag, then re-encode the output to utf8, if options [-noenc] is not specified.
+
 ### Usage
 ```
 Usage of ./hq:
@@ -12,6 +15,8 @@ Usage of ./hq:
   -d    debug or not, if debug, some more will be output
   -html
         print the innerHTML of the node
+  -noenc
+        DO NOT care about the output encoding. without this option, we try to detect and encode the output to utf8
   -ohtml
         print the outerHTML of the node
   -text
@@ -29,50 +34,48 @@ Example usage: ./hq [options] <-html|-ohtml|-text|-attr <name1,name2,...> > <sel
 ### Example
 
 ```bash
-./hq -u 'http://news.qq.com' -attr 'href,text' '.Q-tpList div.text a.linkto'  |iconv -f gbk -t utf8
+./hq -u 'http://www.qq.com' -attr 'href,text' 'div#newsInfoQuanguo a[target="_blank"]'  
 ```
-Take care about the encoding, u should ICONV it to fit your own env, for the html content is encoded in gbk. : ).
+** Note **
+* The selector chose the 'XXX' in  <div id="newsInfoQuanguo">...<a target="_blank">xx</a>...</div>. Learn more about the jQuery selector (here http://www.w3school.com.cn/jquery/jquery_selectors.asp)
+* Take care about the encoding, u should make sure that it fits your own env. we consider that you works in utf8 envirionment
 
-It will produce a list like this below . the original html was stored at index.html (on 18 Jun 2016), just try it
+It will produce a list like this below . the original html was stored at index.html (on 26 Jun 2016), just try it
 
-        http://news.qq.com/a/20160617/057214.htm        发改委回应女学生裸条借贷：惩戒失信但要依法
-        http://sports.qq.com/nba/       NBA-詹皇41+8+11库里遭逐 骑士大胜总分3-3
-        http://news.qq.com/a/20160617/054420.htm        中国军队应越方请求 将协助搜救越南失事飞机
-        http://news.qq.com/a/20160617/053030.htm        美国不愿介入中国军舰进日“领海”事件 称宜由中日解决
-        http://news.qq.com/a/20160617/053311.htm        黑龙江一厅官妻在家门口收百万 钱太多需送上楼
-        http://news.qq.com/a/20160617/056645.htm        押钞员辞职干起抢劫 还爱上被抢的女大学生
-        http://news.qq.com/a/20160617/053759.htm        兰博基尼高速上自燃成空壳 车子刚买没几天
-        http://news.qq.com/a/20160617/053613.htm        田纪云：建国之后急于消灭个体私营经济是一个重大失误
-        http://news.qq.com/a/20160617/049088.htm        安徽高考眼镜被收走女生：希望得到公开道歉
-        http://news.qq.com/a/20160617/016183.htm        油漆工冒充国企领导骗80余万 同时与4名女子网恋
-        http://news.qq.com/a/20160617/041863.htm        消防员火场救出40居民 把面罩让给婴儿自己被熏黑
-        http://news.qq.com/a/20160617/034519.htm        国防部回应海军舰艇航经日本邻近海域：符合国际法
-        http://news.qq.com/a/20160617/060541.htm        治国理政新实践山东篇 品牌“打擂” 创新先行
-        http://news.qq.com/a/20160617/060396.htm        共谋发展 共享繁荣 中塞友谊再谱新篇章
-        http://news.qq.com/a/20160617/028600.htm        中国孕妇赴美生子 所有手续齐全仍被原机遣返
-        http://news.qq.com/a/20160617/046431.htm        妻子出轨后坦白 丈夫不信被戴“绿帽”反而更爱她
-        http://news.qq.com/a/20160617/051092.htm        黑龙江省人口与计划生育条例修改 再婚也可享婚假
-        http://news.qq.com/a/20160617/032488.htm        沪昆高铁全线轨通 设计时速350公里上海到昆明仅8小时
-        http://news.qq.com/a/20160617/037466.htm        赞比亚小报就“中国向非洲卖人肉”事件道歉
-        http://news.qq.com/a/20160616/059756.htm        创纪录贪近2.5亿 白恩培有啥捞钱法宝？
-        http://news.qq.com/a/20160617/004460.htm        京沪等多地调整社保缴费基数 你的社保缴费增加了吗？
-        http://news.qq.com/a/20160617/007868.htm        云南大学生疑因唱歌遭室友杀害 校方无明确表态
-        http://news.qq.com/a/20160616/060254.htm        陕西一派出所副所长唱K后带走卖酒女 经理接人被打断肋骨
-        http://news.qq.com/a/20160616/064177.htm        广西警方回应“近百村民凌晨被抓 ”：因抓嫌犯时遭阻挠
-        http://news.qq.com/a/20160616/060058.htm        解放军1月内43人晋升少将 含首位空军女师长
-        http://news.qq.com/a/20160617/008370.htm        上海迪士尼开园首日频现游客不文明行为：插队、乱丢垃圾
-        http://news.qq.com/a/20160617/009069.htm        英国女议员脱欧公投前一周遭枪击身亡 一名50多岁嫌犯被抓
-        http://news.qq.com/a/20160616/058718.htm        央视专访美国枪击案枪手父亲：儿子不是恐怖分子
-        http://news.qq.com/a/20160617/007836.htm        广东一碰瓷团伙打断同伙骨头诈骗 断骨者仅分几百提成
-        http://news.qq.com/a/20160617/008009.htm        澳洲为防房价涨太快对海外购房者提税 被指针对中国买家
-        http://news.qq.com/a/20160616/052995.htm        黑龙江籍3团伙47人在京碰瓷被抓：开豪车撞酒驾司机
-        http://news.qq.com/a/20160617/008695.htm        媒体：坊间传闻称李云峰与杨卫泽是“连襟”关系
-        http://news.qq.com/a/20160617/008276.htm        媒体：半年5市高官落马 河南反腐也是“蛮拼的”
-        http://news.qq.com/a/20160617/004564.htm        北京昌平一铲车冲向人行道 一位老人被撞身亡(图)
-        http://news.qq.com/a/20160617/008302.htm        媒体揭秘纪检干部受过啥威胁：有人写信“不回去没好下场”
-        http://news.qq.com/a/20160617/007789.htm        陕西咸阳警方：举报社会知名人士吸毒最高奖5千
-        http://news.qq.com/a/20160617/005612.htm        媒体：这件事，德国日本都能做，中国凭啥做不好？
-        http://news.qq.com/a/20160616/058979.htm        泰国厕所天花板掉下2只巨蜥 吓坏如厕女子(图)
-        http://news.qq.com/a/20160617/004420.htm        网传山东中考辅导老师建群作弊 19岁嫌疑人被刑拘
-        http://news.qq.com/a/20160617/006669.htm        少年从上海乘飞机偷渡迪拜续：浦东机场新增航线被叫停
-        http://news.qq.com/a/20160616/060425.htm        日本男子失踪近20年被发现 曾疑遭朝鲜特工绑架
+        http://news.qq.com/a/20160625/030480.htm        习近平同普京会谈
+        http://news.qq.com/a/20160626/007469.htm        中俄联合声明:加强全球战略稳定
+        http://news.qq.com/a/20160626/011341.htm        推进信息网络空间发展
+        http://news.qq.com/p/topic/20140818025149/index.html    专题
+        http://news.qq.com/zt2016/zhesannian/index.htm  治国理政
+        http://news.qq.com/p/topic/20160620059297/index.html    建党95周年
+        http://news.qq.com/a/20160625/029599.htm        李克强历届达沃斯演讲传递什么信号
+        http://news.qq.com/a/20160625/030573.htm        会见普京
+        http://finance.qq.com/zt2016/davos2016s/index.htm       专题
+        http://news.qq.com/a/20160626/014784.htm        国资委副主任等3位省部级官员被通报违反八项规定
+        http://news.qq.com/a/20160626/021171.htm        公安部副部长率队赴湖南宜章调查客车起火事故
+        http://news.qq.com/a/20160626/001566.htm        长征七号火箭首飞成功
+        http://news.qq.com/a/20160626/001201.htm        揭秘：为何尾焰多了蓝色
+        http://news.qq.com/a/20160626/008391.htm#p=1    后悔了？英国民众吁二次公投 请愿签名超157万
+        http://news.qq.com/a/20160626/014658.htm        老太被蜱虫叮咬生命垂危 320小时血液过滤救回
+        http://news.qq.com/a/20160626/008072.htm#p=1    -
+        http://news.qq.com/a/20160626/008072.htm#p=1    张家界玻璃桥“安检”：小车碾压 30人铁锤猛砸
+        http://news.qq.com/a/20160626/006650.htm        江苏盐城救援战士昼夜奋斗 累了睡废墟
+        http://news.qq.com/a/20160626/015564.htm        中纪委机关报：党员不交党费就是脱党 就应除名
+        http://news.qq.com/a/20160626/001233.htm        长征七号到登月有多远
+        http://news.qq.com/newspedia/changqi.htm        动画演示火箭有多牛
+        http://news.qq.com/a/20160626/013499.htm        “百名红通人员”30人到案 都是怎么追回来的
+        http://news.qq.com/a/20160626/014704.htm#p=1    朝鲜举行大规模群众集会 纪念“反美斗争日”
+        http://news.qq.com/a/20160626/013335.htm        揭KTV冰妹：陪人吸毒1次赚上千 心肝等器官患病
+        http://sports.qq.com/isocce/2016copaamerica/    美洲杯-哥伦比亚1-0美国获季军 巴卡破门制胜
+        http://sports.qq.com/nba        NBA-杜兰特七大下家曝光 美男篮12人名单出炉
+        http://news.qq.com/a/20160626/016906.htm#p=1    -
+        http://news.qq.com/a/20160626/016906.htm#p=1    夫妻因租不起房 带着婴儿在网吧吃住半个月
+        http://news.qq.com/a/20160626/006940.htm#p=1    陕西神木一镇政府新房烂尾 借房办公
+        http://news.qq.com/a/20160626/000214.htm        公务员谈仕途变化：51岁还能晋升 不再跑官要官
+        http://news.qq.com/a/20160626/002534.htm        90岁抗战老兵公园内乞讨 官方：不符优抚政策
+        http://news.qq.com/a/20160626/011184.htm#p=1    龙卷风到来时，他在废墟下“舍身护妻”
+        http://news.qq.com/a/20160626/005212.htm        高考状元清华博士毕业回西安：北京房价太贵
+        http://news.qq.com/a/20160626/019287.htm        蓝孔雀男厕洗手台照镜子 网友：美男子
+        http://ent.qq.com/a/20160625/031437.htm 黄渤演讲拿自己开涮：教你如何抹平“颜值差”
+        http://ent.qq.com/a/20160626/010372.htm 小贝赴港出席活动 徐子淇半亿黄钻抢镜
+        http://ent.qq.com/a/20160625/031942.htm 【存照】美丽俏女神，公公眼中好儿媳  
